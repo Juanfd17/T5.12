@@ -6,11 +6,13 @@ public abstract class Vuelo implements Comparable<Vuelo>{
     private String destino;
     private String modelo;
     private int nPlazas;
+    private int precio;
 
-    public Vuelo(String destino, String modelo, int nPlazas) {
+    public Vuelo(String destino, String modelo, int nPlazas, int precio) {
         this.destino = destino;
         this.modelo = modelo;
         this.nPlazas = nPlazas;
+        this.precio = precio;
     }
 
     public String getDestino() {
@@ -60,7 +62,11 @@ public abstract class Vuelo implements Comparable<Vuelo>{
         return posicion;
     }
 
+    public int getPrecio() {
+        return precio;
+    }
 
+    public abstract int precioFinal();
 
     @Override
     public String toString() {
