@@ -1,10 +1,15 @@
-package pkgaeropuerto.modelo;
+package pkgaeropuerto.pkgaeropuerto.modelo;
+
+import pkgaeropuerto.modelo.Charter;
+import pkgaeropuerto.modelo.ComparadorPorPlazas;
+import pkgaeropuerto.modelo.Regular;
+import pkgaeropuerto.modelo.Vuelo;
 
 import java.util.*;
 
 public class Aeropuerto {
 
-	private Map<String, Set<Vuelo>> vuelos;
+	private Map<String, Set<pkgaeropuerto.modelo.Vuelo>> vuelos;
 
 	public Aeropuerto() {
 		vuelos = new TreeMap<>();
@@ -15,10 +20,10 @@ public class Aeropuerto {
 	 * no estuviese ya introducido, si la aerolinea no existiese se añade tanto la
 	 * aerolinea como el vuelo.
 	 */
-	public void addVuelo(String aerolinea, Vuelo vuelo) {
-		Set<Vuelo> vueleosKey = vuelos.get(aerolinea);
+	public void addVuelo(String aerolinea, pkgaeropuerto.modelo.Vuelo vuelo) {
+		Set<pkgaeropuerto.modelo.Vuelo> vueleosKey = vuelos.get(aerolinea);
 		if (vueleosKey == null){
-			vueleosKey = new TreeSet<>(Vuelo::compareTo);
+			vueleosKey = new TreeSet<>(pkgaeropuerto.modelo.Vuelo::compareTo);
 		}
 
 		vueleosKey.add(vuelo);
@@ -41,15 +46,15 @@ public class Aeropuerto {
 	 *            Aerolinea de la que se imprimiran los vuelos regulares
 	 */
 	public void regularPorPlazas(String aerolinea) {
-		Set<Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
-		Set<Regular> vuelosRegulares = new TreeSet<>(new ComparadorPorPlazas());
-		for (Vuelo vuelo: vuelosAerolinea) {
-			if (vuelo instanceof Regular){
-				vuelosRegulares.add((Regular) vuelo);
+		Set<pkgaeropuerto.modelo.Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
+		Set<pkgaeropuerto.modelo.Regular> vuelosRegulares = new TreeSet<>(new ComparadorPorPlazas());
+		for (pkgaeropuerto.modelo.Vuelo vuelo: vuelosAerolinea) {
+			if (vuelo instanceof pkgaeropuerto.modelo.Regular){
+				vuelosRegulares.add((pkgaeropuerto.modelo.Regular) vuelo);
 			}
 		}
 
-		for (Vuelo vuelo: vuelosRegulares) {
+		for (pkgaeropuerto.modelo.Vuelo vuelo: vuelosRegulares) {
 			System.out.println(vuelo);
 		}
 	}
@@ -59,14 +64,14 @@ public class Aeropuerto {
 	 *
 	 * @return aerolina Aerolina del avion charter con más capacidad
 	 */
-	public List<Vuelo> plazasLibres() {
+	public List<pkgaeropuerto.modelo.Vuelo> plazasLibres() {
 		Set<String> aerolineas = vuelos.keySet();
-		List<Vuelo> vuelosLibres = new ArrayList<>();
+		List<pkgaeropuerto.modelo.Vuelo> vuelosLibres = new ArrayList<>();
 		for (String aerolinea: aerolineas) {
-			Set<Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
-			for (Vuelo vuelo: vuelosAerolinea) {
-				if (vuelo instanceof Regular){
-					if (((Regular) vuelo).getPlazasLibres() > 0){
+			Set<pkgaeropuerto.modelo.Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
+			for (pkgaeropuerto.modelo.Vuelo vuelo: vuelosAerolinea) {
+				if (vuelo instanceof pkgaeropuerto.modelo.Regular){
+					if (((pkgaeropuerto.modelo.Regular) vuelo).getPlazasLibres() > 0){
 						vuelosLibres.add(vuelo);
 					}
 				}
@@ -87,9 +92,9 @@ public class Aeropuerto {
 		System.out.println("Estadistica de los vuelos con destino a MAD\n");
 		Set<String> aerolineas = vuelos.keySet();
 		for (String aerolinea: aerolineas) {
-			Set<Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
+			Set<pkgaeropuerto.modelo.Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
 			int nVuelos = 0;
-			for (Vuelo vuelo: vuelosAerolinea) {
+			for (pkgaeropuerto.modelo.Vuelo vuelo: vuelosAerolinea) {
 				if (vuelo.getDestino().equals(destino)){
 					nVuelos++;
 				}
@@ -109,11 +114,11 @@ public class Aeropuerto {
 		int vuelosBorrados = 0;
 		Set<String> aerolineas = vuelos.keySet();
 		for (String aerolinea : aerolineas) {
-			Set<Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
-			Iterator<Vuelo> iterador = vuelosAerolinea.iterator();
+			Set<pkgaeropuerto.modelo.Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
+			Iterator<pkgaeropuerto.modelo.Vuelo> iterador = vuelosAerolinea.iterator();
 			while (iterador.hasNext()) {
-				Vuelo vuelo = iterador.next();
-				if (vuelo instanceof Charter && ((Charter) vuelo).getNif().equals(nifEmpresa)) {
+				pkgaeropuerto.modelo.Vuelo vuelo = iterador.next();
+				if (vuelo instanceof pkgaeropuerto.modelo.Charter && ((pkgaeropuerto.modelo.Charter) vuelo).getNif().equals(nifEmpresa)) {
 					iterador.remove();
 					vuelosBorrados++;
 				}
@@ -128,18 +133,18 @@ public class Aeropuerto {
 	 *
 	 * @param listaVuelos
 	 */
-	public void imprimirListaVuelos(List<Vuelo> listaVuelos) {
-		for (Vuelo vuelo: listaVuelos) {
+	public void imprimirListaVuelos(List<pkgaeropuerto.modelo.Vuelo> listaVuelos) {
+		for (pkgaeropuerto.modelo.Vuelo vuelo: listaVuelos) {
 			System.out.println(vuelo);
 		}
 	}
 
 	public void imprimirPasajerosPorAerolinea(String aerolinea){
-		Set<Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
+		Set<pkgaeropuerto.modelo.Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
 		int pasageros = 0;
-		for (Vuelo vuelo: vuelosAerolinea) {
-			if (vuelo instanceof Regular){
-				pasageros += vuelo.getnPlazas() - ((Regular) vuelo).getPlazasLibres();
+		for (pkgaeropuerto.modelo.Vuelo vuelo: vuelosAerolinea) {
+			if (vuelo instanceof pkgaeropuerto.modelo.Regular){
+				pasageros += vuelo.getnPlazas() - ((pkgaeropuerto.modelo.Regular) vuelo).getPlazasLibres();
 			} else {
 				pasageros += vuelo.getnPlazas();
 			}
@@ -151,9 +156,9 @@ public class Aeropuerto {
 	public void imprimirVuelosMasPasajerosQueMedia(){
 		Set<String> aerolineas = vuelos.keySet();
 		for (String aerolinea: aerolineas) {
-			Set<Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
+			Set<pkgaeropuerto.modelo.Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
 			double media = 0;
-			for (Vuelo vuelo: vuelosAerolinea) {
+			for (pkgaeropuerto.modelo.Vuelo vuelo: vuelosAerolinea) {
 				media += vuelo.getnPlazas();
 			}
 
@@ -161,7 +166,7 @@ public class Aeropuerto {
 
 			System.out.println("La media de plazas de los vuelos de " + aerolinea + " es de " + media);
 			System.out.println("Los Vuelos de " + aerolinea + " con mas plaxas que la media son:");
-			for (Vuelo vuelo: vuelosAerolinea) {
+			for (pkgaeropuerto.modelo.Vuelo vuelo: vuelosAerolinea) {
 				if (vuelo.getnPlazas() >= media){
 					System.out.println(vuelo);
 				}
@@ -178,7 +183,7 @@ public class Aeropuerto {
 		for (String aerolinea: aerolineas) {
 			sb.append(aerolinea);
 			sb.append("\n========\n");
-			Set<Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
+			Set<pkgaeropuerto.modelo.Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
 			for (Vuelo vuelo: vuelosAerolinea) {
 				sb.append(vuelo).append("\n");
 			}

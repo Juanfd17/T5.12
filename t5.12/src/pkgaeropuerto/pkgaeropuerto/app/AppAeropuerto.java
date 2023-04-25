@@ -1,4 +1,4 @@
-package pkgaeropuerto.app;
+package pkgaeropuerto.pkgaeropuerto.app;
 
 import pkgaeropuerto.modelo.Aeropuerto;
 
