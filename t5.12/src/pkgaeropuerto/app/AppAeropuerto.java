@@ -9,7 +9,7 @@ public class AppAeropuerto {
 
 		aeropuerto.leerFicheroCursos();
 		System.out.println("\nLista de vuelos ordenados alfabeticamente\n");
-		aeropuerto.ordenAerolineasAlfabetico();
+		aeropuerto.imprimirAeropuerto();
 		System.out.println("\nVuelos ordenados por plaza de la compañia Vueling\n");
 		aeropuerto.regularPorPlazas("Vueling");
 		System.out.println("\nLista de vuelos con plazas libres\n");

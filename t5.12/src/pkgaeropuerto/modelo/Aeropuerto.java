@@ -18,7 +18,7 @@ public class Aeropuerto {
 	public void addVuelo(String aerolinea, Vuelo vuelo) {
 		Set<Vuelo> vueleosKey = vuelos.get(aerolinea);
 		if (vueleosKey == null){
-			vueleosKey = new TreeSet<>(vuelo);
+			vueleosKey = new TreeSet<>(Vuelo::compareTo);
 		}
 
 		vueleosKey.add(vuelo);
@@ -29,16 +29,8 @@ public class Aeropuerto {
 	 * Imprime los vuelos por cada aerolinea ordenados por destino, tanto aerolineas
 	 * como vuelos estaran ordenados alfabeticamente (Ver resultados de ejecucion)
 	 */
-	public void ordenAerolineasAlfabetico() {
-		Set<String> aerolineas = vuelos.keySet();
-		for (String aerolinea: aerolineas) {
-			System.out.println(aerolinea);
-			System.out.println("========\n");
-			Set<Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
-			for (Vuelo vuelo: vuelosAerolinea) {
-				System.out.println(vuelo);
-			}
-		}
+	public void imprimirAeropuerto() {
+		System.out.println(toString());
 	}
 
 	/**
@@ -50,7 +42,7 @@ public class Aeropuerto {
 	 */
 	public void regularPorPlazas(String aerolinea) {
 		Set<Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
-		Set<Regular> vuelosRegulares = new TreeSet<>();
+		Set<Regular> vuelosRegulares = new TreeSet<>(new ComparadorPorPlazas());
 		for (Vuelo vuelo: vuelosAerolinea) {
 			if (vuelo instanceof Regular){
 				vuelosRegulares.add((Regular) vuelo);
@@ -146,7 +138,17 @@ public class Aeropuerto {
 	 * Represetación textual del mapa tal y como se muestra en el enunciado
 	 */
 	public String toString() {
-		return null;
+		StringBuilder sb = new StringBuilder();
+		Set<String> aerolineas = vuelos.keySet();
+		for (String aerolinea: aerolineas) {
+			sb.append(aerolinea);
+			sb.append("\n========\n");
+			Set<Vuelo> vuelosAerolinea = vuelos.get(aerolinea);
+			for (Vuelo vuelo: vuelosAerolinea) {
+				sb.append(vuelo).append("\n");
+			}
+		}
+		return sb.toString();
 	}
 
 	/**
