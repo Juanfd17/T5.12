@@ -30,7 +30,6 @@ public class Charter extends Vuelo {
         final StringBuilder sb = new StringBuilder("Vuelo Charter\n");
         sb.append("------------\n\n");
         sb.append(super.toString());
-        sb.append("Precio billete: ").append(precioFinal()).append("\n");
         sb.append("Nif empresa: ").append(nif).append("\n");
         return sb.toString();
     }

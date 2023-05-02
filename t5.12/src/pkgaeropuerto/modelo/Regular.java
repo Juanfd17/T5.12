@@ -25,7 +25,6 @@ public class Regular extends Vuelo{
         final StringBuilder sb = new StringBuilder("Vuelo Regular\n");
         sb.append("------------\n\n");
         sb.append(super.toString());
-        sb.append("Precio billete: ").append(precioFinal()).append("\n");
         sb.append("Plazas Libres: ").append(plazasLibres).append("\n");
         return sb.toString();
     }
